@@ -1,3 +1,7 @@
+# Description
+
+Михаил Непомнящий - Анимации в ReactJS - https://www.youtube.com/watch?v=_94vYQtaz1Y&list=PLiZoB8JBsdzkn1yqxUaprfLYzdS-1jhJE
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
