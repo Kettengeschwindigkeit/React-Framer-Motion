@@ -1,49 +1,55 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import Button from "./Button";
 
 const Filter = ({ data }) => {
-  const [cards, setCards] = useState(data.filter(el => el.category === "cars"));
+  const [cards, setCards] = useState(data);
+  const [selected, setSelected] = useState(0);
 
   const buttons = data.reduce((acc, el) => {
     if (acc.includes(el.category)) return acc;
 
     return [...acc, el.category];
-  }, []);
+  }, ["all"]);
 
   const handleFilter = (selector) => {
-    console.log("click", selector)
+    if (selector === "all") return setCards(data);
+
     setCards(data.filter(el => el.category === selector));
   };
 
-  const handleFilter1 = () => {
-    console.log("click-1")
-  };
-
   return (
-    <div>
-      <div>
-        {buttons.map(btn => (
-          <Button key={btn} text={btn} handleClick={() => handleFilter(btn)} handlClick1={handleFilter1} />
-        ))}
-      </div>
-      <div style={{ maxWidth: 400, overflow: "hidden" }}>
-        <AnimatePresence initial={false} mode="wait">
-          {cards.map(el => (
-            <motion.div
-              key={el.title}
-              style={boxStyle}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1 }}
-            >
-              {el.title}
-            </motion.div>
+    <LayoutGroup>
+      <motion.div layout>
+        <motion.div style={{ backgroundColor: "#f1f1f1" }}>
+          {buttons.map((btn, index) => (
+            <Button
+              key={btn}
+              text={btn}
+              handleClick={() => {handleFilter(btn); setSelected(index)}}
+              isSelected={selected === index}
+            />
           ))}
-        </AnimatePresence>
-      </div>
-    </div>
+        </motion.div>
+        <motion.div style={{ maxWidth: 400, border: "1px solid #ccc", overflow: "hidden" }} layout>
+          <AnimatePresence initial={false} mode="wait">
+            {cards.map(el => (
+              <motion.div
+                layout
+                key={el.title}
+                style={boxStyle}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 1 }}
+              >
+                {el.title}
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+      </motion.div>
+    </LayoutGroup>
   )
 };
 

@@ -34,5 +34,9 @@ export const data = [
   {
     category: "animals",
     title: "Cow"
+  },
+  {
+    category: "cars",
+    title: "Toyota"
   }
 ];
