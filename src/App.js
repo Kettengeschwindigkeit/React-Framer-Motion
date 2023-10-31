@@ -7,6 +7,7 @@ import Filter from "./Filter";
 import { data } from "./data";
 import { useState } from "react";
 import Menu from "./Menu";
+import { MButton } from "./MButton";
 
 function App() {
   const [show, setShow] = useState(false);
@@ -22,6 +23,30 @@ function App() {
     }
   };
 
+  const textVariants = {
+    hidden: {
+      x: -100,
+      opacity: 0
+    },
+    visible: custom => ({
+      x: 0,
+      opacity: 1,
+      transition: { delay: custom * 0.2 }
+    })
+  };
+
+  const textVariants1 = {
+    hidden: {
+      y: 100,
+      opacity: 0
+    },
+    visible: custom => ({
+      y: 0,
+      opacity: 1,
+      transition: { delay: custom * 0.2 }
+    })
+  };
+
   const listVariants = {
     visible: i => ({
       opacity: 1,
@@ -31,6 +56,18 @@ function App() {
       }
     }),
     hidden: { opacity: 0, y: 100 }
+  };
+
+  const featureAnimation = {
+    hidden: {
+      y: 100,
+      opacity: 0
+    },
+    visible: custom => ({
+      y: 0,
+      opacity: 1,
+      transition: { delay: custom * 0.2 }
+    })
   };
 
   const items = ["Text 1", "Text 2", "Text 3"];
@@ -95,6 +132,37 @@ function App() {
           </div>
           <Filter data={data} />
         </div>
+        <motion.section initial="hidden" whileInView="visible">
+          <motion.h1 variants={textVariants} custom={1}>Некоторый заголовок</motion.h1>
+          <motion.p variants={textVariants} custom={2}>Некоторый подзаголовок</motion.p>
+          <MButton variants={textVariants} custom={3}>Кнопка</MButton>
+        </motion.section>
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ amount: 0.2 }}
+        >
+          <motion.h2 variants={textVariants1} custom={1}>Some header</motion.h2>
+          <motion.p variants={textVariants1} custom={2}>Some subheader</motion.p>
+        </motion.section>
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ amount: 0.2, once: true }}
+        >
+          <motion.h2 variants={textVariants1} custom={1}>Some another header</motion.h2>
+          <motion.p variants={textVariants1} custom={2}>Some another subheader</motion.p>
+          <motion.div
+            style={{ display: "flex", justifyContent: "center", gap: 15 }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ amount: 0.2 }}
+          >
+            <motion.div style={{ width: 80, height: 65, color: "black", backgroundColor: "white" }} variants={featureAnimation} custom={1}>card</motion.div>
+            <motion.div style={{ width: 80, height: 65, color: "black", backgroundColor: "white" }} variants={featureAnimation} custom={2}>card</motion.div>
+            <motion.div style={{ width: 80, height: 65, color: "black", backgroundColor: "white" }} variants={featureAnimation} custom={3}>card</motion.div>
+          </motion.div>
+        </motion.section>
       </header>
     </div>
   );
