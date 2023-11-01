@@ -8,9 +8,18 @@ import { data } from "./data";
 import { useState } from "react";
 import Menu from "./Menu";
 import { MButton } from "./MButton";
+import { Todos } from "./Todos";
+import { CreateTodo } from "./CreateTodo";
+
+const defaultTodos = [
+  { id: 1, title: "Learn Framer Motion", completed: false },
+  { id: 2, title: "Create nice animation", completed: false },
+  { id: 3, title: "Use Reorder component", completed: false }
+];
 
 function App() {
   const [show, setShow] = useState(false);
+  const [todos, setTodos] = useState(defaultTodos);
 
   const pVariants = {
     hidden: {
@@ -68,6 +77,10 @@ function App() {
       opacity: 1,
       transition: { delay: custom * 0.2 }
     })
+  };
+
+  const onRemove = (id) => {
+    setTodos(todos.filter(todo => todo.id !== id));
   };
 
   const items = ["Text 1", "Text 2", "Text 3"];
@@ -163,6 +176,8 @@ function App() {
             <motion.div style={{ width: 80, height: 65, color: "black", backgroundColor: "white" }} variants={featureAnimation} custom={3}>card</motion.div>
           </motion.div>
         </motion.section>
+        <CreateTodo onCreate={setTodos} />
+        <Todos todos={todos} setTodos={setTodos} onRemove={onRemove} />
       </header>
     </div>
   );
