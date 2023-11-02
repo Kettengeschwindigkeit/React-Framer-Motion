@@ -1,4 +1,5 @@
 .App {
+  position: relative;
   text-align: center;
 }
 
@@ -28,4 +29,39 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  padding: 0.25rem 1rem;
+  color: white;
+  background-color: #ccc;
+  overflow: hidden;
+  z-index: 3;
+}
+
+.section {
+  height: 100vh;
+  /* padding: 3rem 1rem; */
+  color: white
+}
+
+.button {
+  display: block;
+  margin-top: 10px;
+  padding: 5px 10px;
+  color: white;
+  background-color: rosybrown;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
 }
